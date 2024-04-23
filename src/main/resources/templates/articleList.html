@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 목록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+        /* 배경색과 글꼴 스타일을 개선하기 위한 기본 CSS */
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header-section {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        /* 블로그 타이틀 섹션 스타일링 */
+        .p-5.mb-5.text-center.bg-light {
+            background-color: #007bff !important;
+            color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 카드 스타일링 */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 버튼 스타일링 */
+        #create-btn {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header-section p-5 mb-5 text-center">
+    <h1 class="mb-3">Blog Project</h1>
+    <h4 class="mb-3">블로그를 둘러보고 자유롭게 글을 써 보세요</h4>
+</div>
+
+<div class="container">
+    <button type="button" id="create-btn"
+            th:onclick="|location.href='@{/new-article}'|"
+            class="btn btn-secondary btn-sm mb-3">글 등록</button>
+    <div class="row-6" th:each="item : ${articles}">
+        <div class="card">
+            <div class="card-header" th:text="${item.id}">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${item.title}"></h5>
+                <p class="card-text" th:text="${item.content}"></p>
+                <a th:href="@{/articles/{id}(id=${item.id})}" class="btn btn-primary">보러가기</a>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
+</div>
+
+<script src="/js/token.js"></script>
+<script src="/js/article.js"></script>
+</body>
